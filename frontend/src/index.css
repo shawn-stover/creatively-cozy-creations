@@ -11,6 +11,10 @@ body {
   min-height: 100vh;
 }
 
+.btn-primary {
+  background-color: #0080ff;
+}
+
 .color-nav {
   background-color: #ffccbc;
 }
@@ -41,4 +45,8 @@ main {
 
 .product-info {
   padding: 1rem;
+}
+
+.rating span {
+  color: #ffc000;
 }
