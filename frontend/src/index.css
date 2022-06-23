@@ -7,19 +7,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-header {
-  background-color: #ffdabe;
-  padding: 1rem; /* 1 rem = 16 px */
+.site-container {
+  min-height: 100vh;
 }
 
-header a {
+.color-nav {
+  background-color: #ffccbc;
+}
+
+.color-brand {
   color: #000000;
-  font-weight: bold;
-  text-decoration: none;
 }
 
 main {
-  padding: 1rem;
+  flex: 1;
 }
 
 .products {
