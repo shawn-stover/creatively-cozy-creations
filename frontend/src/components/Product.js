@@ -6,6 +6,7 @@ import Rating from './Rating';
 
 function Product(props) {
   const { product } = props;
+
   return (
     <Card className="product">
       {/* Using Link removes the spinner loading symbol on page change */}
