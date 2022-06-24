@@ -22,7 +22,7 @@ function App() {
           </Navbar>
         </header>
         <main>
-          <Container>
+          <Container className="mt-3">
             <Routes>
               {/* Modular Routing for Scalability */}
               {/* colon allows us to pull an attribute to use as needed, 

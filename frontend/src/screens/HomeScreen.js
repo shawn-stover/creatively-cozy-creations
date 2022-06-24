@@ -4,6 +4,7 @@ import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Product from '../components/Product';
+import { Helmet } from 'react-helmet-async';
 
 /* Reducer is used to better control complex state when communicvating 
 between front/backend and displayiung results to consumers */
@@ -40,6 +41,9 @@ function HomeScreen() {
   }, []);
   return (
     <div>
+      <Helmet>
+        <title>Creatively Cozy Creations</title>
+      </Helmet>
       <h1>Featured Products</h1>
       <div className="products">
         {/*  Conditional loading based on state */}

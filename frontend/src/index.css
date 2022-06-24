@@ -23,6 +23,10 @@ body {
   color: #000000;
 }
 
+.img-large {
+  max-width: 100%;
+}
+
 main {
   flex: 1;
 }
