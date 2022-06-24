@@ -14,8 +14,8 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../utils.js';
 
-/* Reducer is used to better control complex state when communicvating 
-between front/backend and displayiung results to consumers */
+/* Reducer is used to better control complex state when communicating 
+between front/backend and displaying results to consumers */
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
