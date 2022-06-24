@@ -53,13 +53,24 @@ function ProductScreen() {
     fetchData();
   }, [slug]);
 
-  /* Needed toi rename dispatch to differentiate from other dispatch,
+  /* Needed to rename dispatch to differentiate from other dispatch,
   this one is dispatching from context given by the StoreHandler */
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const addToCartHandler = () => {
+  const { cart } = state;
+  const addToCartHandler = async () => {
+    // checking if item exists in inventory
+    const itemExists = cart.cartItems.find((x) => x._id === product._id);
+    const quantity = itemExists ? itemExists.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+      window.alert(
+        'Sorry. Including what is in your cart, product is out of stock!'
+      );
+      return;
+    }
     ctxDispatch({
       type: 'CART_ADD_ITEM',
-      payload: { ...product, quantity: 1 },
+      payload: { ...product, quantity },
     });
   };
 

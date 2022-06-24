@@ -30,7 +30,14 @@ function App() {
                   Cart
                   {cart.cartItems.length > 0 && (
                     <Badge pill bg="primary">
-                      {cart.cartItems.length}
+                      {/* Set accumulator to 0 and add 
+                      currentItem.quantity to it, this will update the 
+                      cart display properly  */}
+                      {cart.cartItems.reduce(
+                        (accumulator, currentItem) =>
+                          accumulator + currentItem.quantity,
+                        0
+                      )}
                     </Badge>
                   )}
                 </Link>
