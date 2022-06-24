@@ -1,6 +1,6 @@
 // Imports
 import axios from 'axios';
-import { useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
 import { useParams } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../utils.js';
+import { Store } from '../Store';
 
 /* Reducer is used to better control complex state when communicating 
 between front/backend and displaying results to consumers */
@@ -39,6 +40,7 @@ function ProductScreen() {
     error: '',
   });
   useEffect(() => {
+    // Fetching data from backend to serve to the consumer / user
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
@@ -50,6 +52,16 @@ function ProductScreen() {
     };
     fetchData();
   }, [slug]);
+
+  /* Needed toi rename dispatch to differentiate from other dispatch,
+  this one is dispatching from context given by the StoreHandler */
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const addToCartHandler = () => {
+    ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity: 1 },
+    });
+  };
 
   // Conditional loading for various device speeds
   return loading ? (
@@ -117,7 +129,9 @@ function ProductScreen() {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button variant="primary">Add to Cart</Button>
+                      <Button onClick={addToCartHandler} variant="primary">
+                        Add to Cart
+                      </Button>
                     </div>
                   </ListGroup.Item>
                 )}
