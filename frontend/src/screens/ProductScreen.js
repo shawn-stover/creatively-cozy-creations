@@ -10,6 +10,9 @@ import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { getError } from '../utils.js';
 
 /* Reducer is used to better control complex state when communicvating 
 between front/backend and displayiung results to consumers */
@@ -42,88 +45,88 @@ function ProductScreen() {
         const result = await axios.get(`/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
     fetchData();
   }, [slug]);
-  return (
-    // Conditional Rendering to cover various internet speeds
-    loading ? (
-      <div>Loading...</div>
-    ) : error ? (
-      <div>{error}</div>
-    ) : (
-      <div>
-        <Row>
-          <Col md={6}>
-            <img
-              className="img-large"
-              src={product.image}
-              alt={product.name}
-            ></img>
-          </Col>
-          <Col md={3}>
-            <ListGroup variant="flush">
-              <ListGroup.Item>
-                <Helmet>
-                  <title>{product.name}</title>
-                </Helmet>
-                <h1>{product.name}</h1>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Rating
-                  rating={product.rating}
-                  numReviews={product.numReviews}
-                ></Rating>
-              </ListGroup.Item>
-              <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-              <ListGroup.Item>
-                Description:
-                <p>{product.description}</p>
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col md={3}>
-            <Card>
-              <Card.Body>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Price:</Col>
-                      <Col>${product.price}</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Inventory:</Col>
-                      <Col>
-                        {/* Conditional for In Stock section */}
-                        {product.countInStock > 0 ? (
-                          <Badge bg="success">
-                            {product.countInStock} In Stock
-                          </Badge>
-                        ) : (
-                          <Badge bg="danger">Sold Out</Badge>
-                        )}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
 
-                  {product.countInStock > 0 && (
-                    <ListGroup.Item>
-                      <div className="d-grid">
-                        <Button variant="primary">Add to Cart</Button>
-                      </div>
-                    </ListGroup.Item>
-                  )}
-                </ListGroup>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </div>
-    )
+  // Conditional loading for various device speeds
+  return loading ? (
+    <LoadingBox />
+  ) : error ? (
+    <MessageBox variant="danger">{error}</MessageBox>
+  ) : (
+    <div>
+      <Row>
+        <Col md={6}>
+          <img
+            // Bootstrap classNames
+            className="img-large"
+            src={product.image}
+            alt={product.name}
+          ></img>
+        </Col>
+        <Col md={3}>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <Helmet>
+                <title>{product.name}</title>
+              </Helmet>
+              <h1>{product.name}</h1>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Rating
+                rating={product.rating}
+                numReviews={product.numReviews}
+              ></Rating>
+            </ListGroup.Item>
+            <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+            <ListGroup.Item>
+              Description:
+              <p>{product.description}</p>
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+        <Col md={3}>
+          <Card>
+            <Card.Body>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Price:</Col>
+                    <Col>${product.price}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Inventory:</Col>
+                    <Col>
+                      {/* Conditional for In Stock section */}
+                      {product.countInStock > 0 ? (
+                        <Badge bg="success">
+                          {product.countInStock} In Stock
+                        </Badge>
+                      ) : (
+                        <Badge bg="danger">Sold Out</Badge>
+                      )}
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+
+                {product.countInStock > 0 && (
+                  <ListGroup.Item>
+                    <div className="d-grid">
+                      <Button variant="primary">Add to Cart</Button>
+                    </div>
+                  </ListGroup.Item>
+                )}
+              </ListGroup>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 }
 
