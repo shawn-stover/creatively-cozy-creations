@@ -9,6 +9,7 @@ import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
 import { useContext } from 'react';
 import { Store } from './Store.js';
+import CartScreen from './screens/CartScreen.js';
 
 function App() {
   const { state } = useContext(Store);
@@ -52,6 +53,7 @@ function App() {
               {/* colon allows us to pull an attribute to use as needed, 
               here we are pulling product.slug */}
               <Route path="/product/:slug" element={<ProductScreen />} />
+              <Route path="/cart" element={<CartScreen />} />
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
