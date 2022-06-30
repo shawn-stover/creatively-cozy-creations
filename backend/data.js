@@ -2,7 +2,6 @@
 const data = {
   products: [
     {
-      _id: '1',
       name: 'Whistle Zipper Pull',
       // Slug is what you see on the URL
       slug: 'Whistle-Zipper-Pull',
@@ -15,7 +14,6 @@ const data = {
       description: 'Zipper pull with silver whistle and biblical charm',
     },
     {
-      _id: '2',
       name: 'Pink and Grey Macrame Keychain',
       slug: 'PG_Mac_Keychain',
       category: 'Keychains',
@@ -27,7 +25,6 @@ const data = {
       description: 'Pink and gray zig-zag beaded keychain',
     },
     {
-      _id: '3',
       name: 'Ballerina Floral Simple Burping Cloth (Girl)',
       slug: 'BF_Burping_Cloth_Girl',
       category: 'Burping Cloths',
@@ -39,7 +36,6 @@ const data = {
       description: 'Ballerina print burping cloths made from cloth diapers',
     },
     {
-      _id: '4',
       name: 'Floral Simple Burping Cloth (Girl)',
       slug: 'F_Simple_Burping_Cloth',
       category: 'Burp Cloths',
@@ -51,7 +47,6 @@ const data = {
       description: 'Floral print burping cloths made from cloth diapers',
     },
     {
-      _id: '5',
       name: 'Music Speaks Guitar Pick Necklace (Silver)',
       slug: 'Music_Speaks_Guitar_Pick_Neck',
       category: 'Necklaces',
@@ -63,7 +58,6 @@ const data = {
       description: 'Guitar Pick Shaped Necklace',
     },
     {
-      _id: '6',
       name: 'Black QRS Complex Bracelet (Heartbeat Line)',
       slug: 'QRS_Bracelet_HBL_Black',
       category: 'Bracelets',
@@ -75,7 +69,6 @@ const data = {
       description: 'QRS Complex on a black leather bracelet',
     },
     {
-      _id: '7',
       name: 'Gray QRS Complex Bracelet (Heartbeat Line)',
       slug: 'QRS_Complex_HBL_Gray',
       category: 'Bracelets',
@@ -87,7 +80,6 @@ const data = {
       description: 'QRS Complex on a gray leather bracelet',
     },
     {
-      _id: '8',
       name: 'Quilted Ironing Board Cover',
       slug: 'Quilted_Ironing_Board_Cover',
       category: 'Home Goods',
@@ -100,7 +92,6 @@ const data = {
         'Mauve and floral quilted ironing board cover with drawstring closure',
     },
     {
-      _id: '9',
       name: 'Light to Dark Faded Jade Colored Earrings',
       slug: 'LtD_Faded_Jade_Colored_Ear',
       category: 'Earrings',
@@ -112,7 +103,6 @@ const data = {
       description: 'Light to dark fade jade colored earrings',
     },
     {
-      _id: '10',
       name: 'Patriotic Yellow Ribbon Zipper Pull',
       slug: 'Pat_Yellow_Rib_Zip_Pull',
       category: 'Zipper Pulls',
@@ -124,7 +114,6 @@ const data = {
       description: 'Patriotic yellow ribbon themed zipper pull',
     },
     {
-      _id: '11',
       name: 'Potato Bag Vintage Bird Print',
       slug: 'Pot_Bag_Vin_Bird_Print',
       category: 'Home Goods',
@@ -137,7 +126,6 @@ const data = {
         'Pink and plaid vintage bird print potato bag (includes instructions)',
     },
     {
-      _id: '12',
       name: 'Potato Bag Black Velvet Print',
       slug: 'Pot_Bag_Black_Velvet_Print',
       category: 'Home Goods',
@@ -149,7 +137,6 @@ const data = {
       description: 'Black velvet print potato bag (includes instructions)',
     },
     {
-      _id: '13',
       name: 'Potato Bag Red Floral Print',
       slug: 'Pot_Bag_Red_Floral_Print',
       category: 'Home Goods',
@@ -161,7 +148,6 @@ const data = {
       description: 'Red floral print potato bag (includes instructions)',
     },
     {
-      _id: '14',
       name: 'Potato Bag Black with White Paw Print',
       slug: 'Pot_Bag_Black_White_Paws_Print',
       category: 'Home Goods',
@@ -174,7 +160,6 @@ const data = {
         'Black and white paw print potato bag (includes instructions)',
     },
     {
-      _id: '15',
       name: 'Potato Bag Pink Dot Print',
       slug: 'Pot_Bag_Pink_Dot_Print',
       category: 'Home Goods',
@@ -186,7 +171,6 @@ const data = {
       description: 'Pink Dot print potato bag (includes instructions)',
     },
     {
-      _id: '16',
       name: 'Potato Bag Red Basket Weave Print',
       slug: 'Pot_Bag_Red_BasketW_Print',
       category: 'Home Goods',
@@ -198,7 +182,6 @@ const data = {
       description: 'Red basket weave print potato bag (includes instructions)',
     },
     {
-      _id: '17',
       name: 'Potato Bag White Floral Print',
       slug: 'Pot_Bag_White_Floral_Print',
       category: 'Home Goods',
@@ -210,7 +193,6 @@ const data = {
       description: 'White floral print potato bag (includes instructions)',
     },
     {
-      _id: '18',
       name: 'Rainbow DNA Helix Earrings',
       slug: 'Rainbow_DNA_Helix_Ear',
       category: 'Earrings',
@@ -222,7 +204,6 @@ const data = {
       description: 'Rainbow colored metal DNA helix earrings',
     },
     {
-      _id: '19',
       name: 'Rainbow Themed Treble Clef Pendant Necklace',
       slug: 'Rainbow_Treble_Pendant_Neck',
       category: 'Necklaces',
@@ -234,7 +215,6 @@ const data = {
       description: 'Rainbow themed treble clef on silver chain (with extender)',
     },
     {
-      _id: '20',
       name: 'White Macrame Keychain',
       slug: 'White_Mac_Key',
       category: 'Keychains',
@@ -246,7 +226,6 @@ const data = {
       description: 'Simple white macrame keychain',
     },
     {
-      _id: '21',
       name: 'Sunflower Drop Earrings',
       slug: 'Sunflower_Drop_Ear',
       category: 'Earrings',
@@ -259,7 +238,6 @@ const data = {
         'Black beaded sunflower drop earrings (50% of price donated to Ukraine)',
     },
     {
-      _id: '22',
       name: 'Glass Beaded Tree of Life Resin Drop Earrings',
       slug: 'Glass_Bead_ToL_Resin_Ear',
       category: 'Earrings',
@@ -272,7 +250,6 @@ const data = {
         'Glass beaded drop earrings with resin tree of life charm earrings',
     },
     {
-      _id: '23',
       name: 'Blue Multi-Print Diagonal Quilted Place Mats (Set of 6)',
       slug: 'Blue_Diag_Quilted_Place_Set',
       category: 'Home Goods',
