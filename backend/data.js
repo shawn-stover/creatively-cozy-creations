@@ -33,7 +33,7 @@ const data = {
       category: 'Burping Cloths',
       image: '/images/Burp_Girl_Set_1.jpg',
       price: 10,
-      countInStock: 0,
+      countInStock: 1,
       rating: 0,
       numReviews: 0,
       description: 'Ballerina print burping cloths made from cloth diapers',

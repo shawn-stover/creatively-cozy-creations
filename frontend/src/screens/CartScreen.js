@@ -6,12 +6,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MessageBox from '../components/MessageBox.js';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 
 export default function CartScreen() {
+  const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
@@ -35,6 +36,11 @@ export default function CartScreen() {
     ctxDispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
 
+  const checkoutHandler = () => {
+    // Redirect to signin, if user is authenticated, redirect to shipping
+    navigate('/signin?redirect=/shipping');
+  };
+
   return (
     <div>
       <Helmet>
@@ -45,7 +51,7 @@ export default function CartScreen() {
         <Col md={8}>
           {cartItems.length === 0 ? (
             <MessageBox>
-              Cart is empty. <Link to="/">Go Shopping</Link>"
+              Cart is empty. <Link to="/">Go Shopping</Link>
             </MessageBox>
           ) : (
             <ListGroup>
@@ -110,7 +116,7 @@ export default function CartScreen() {
                         accumulator + currentItem.quantity,
                       0
                     )}{' '}
-                    item(s) : $
+                    item(s)) : $
                     {cartItems.reduce(
                       (accumulator, currentItem) =>
                         accumulator + currentItem.price * currentItem.quantity,
@@ -121,7 +127,11 @@ export default function CartScreen() {
                 {cartItems.length > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button type="button" variant="primary">
+                      <Button
+                        type="button"
+                        variant="primary"
+                        onClick={checkoutHandler}
+                      >
                         Proceed to Checkout
                       </Button>
                     </div>
