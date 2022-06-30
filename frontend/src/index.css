@@ -63,3 +63,7 @@ main {
 .rating span {
   color: #ffc000;
 }
+
+.small-container {
+  max-width: 37.5rem;
+}
