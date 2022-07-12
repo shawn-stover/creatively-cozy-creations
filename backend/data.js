@@ -1,5 +1,29 @@
-// Data Object for Products (Scalability and inventory tracking)
+// Imports
+import bcrypt from 'bcryptjs';
+
+/* Data Object for Products (Scalability and inventory tracking)
+contains dummy data for seeding */
 const data = {
+  users: [
+    {
+      name: 'Shawn',
+      email: 's@s.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: true,
+    },
+    {
+      name: 'Ashley',
+      email: 'a@a.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: true,
+    },
+    {
+      name: 'Maryanne',
+      email: 'm@m.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: false,
+    },
+  ],
   products: [
     {
       name: 'Whistle Zipper Pull',
