@@ -17,13 +17,14 @@ export default function ShippingAddressScreen() {
   const [fullName, setFullName] = useState(shippingAddress.fullName || '');
   const [address, setAddress] = useState(shippingAddress.address || '');
   const [city, setCity] = useState(shippingAddress.city || '');
-  const [usState, setusState] = useState(shippingAddress.usState || '');
+  const [stateProv, setStateProv] = useState(shippingAddress.stateProv || '');
+  const [zipCode, setZipCode] = useState(shippingAddress.zipCode || '');
+  const [country, setCountry] = useState(shippingAddress.country || '');
   useEffect(() => {
     if (!userInfo) {
       navigate('/signin?redirect=/shipping');
     }
   }, [userInfo, navigate]);
-  const [zipCode, setZipCode] = useState(shippingAddress.zipCode || '');
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({
@@ -32,8 +33,9 @@ export default function ShippingAddressScreen() {
         fullName,
         address,
         city,
-        usState,
+        stateProv,
         zipCode,
+        country,
       },
     });
     localStorage.setItem(
@@ -42,8 +44,9 @@ export default function ShippingAddressScreen() {
         fullName,
         address,
         city,
-        usState,
+        stateProv,
         zipCode,
+        country,
       })
     );
     navigate('/payment');
@@ -83,20 +86,30 @@ export default function ShippingAddressScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="usState">
-            <Form.Label>U.S. State</Form.Label>
+            <Form.Label>State or Province</Form.Label>
             <Form.Control
-              value={usState}
-              onChange={(e) => setusState(e.target.value)}
+              value={stateProv}
+              onChange={(e) => setStateProv(e.target.value)}
               required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="zipCode">
-            <Form.Label>Zip Code</Form.Label>
+            <Form.Label>Zip or Postal Code</Form.Label>
             <Form.Control
               value={zipCode}
               onChange={(e) => setZipCode(e.target.value)}
               required
             />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="country">
+            <Form.Label>Country</Form.Label>
+            <Form.Select
+              id={country}
+              onChange={(e) => setCountry(e.target.value)}
+            >
+              <option value="U.S.A.">U.S.A.</option>
+              <option value="Canada">Canada</option>
+            </Form.Select>
           </Form.Group>
           <div className="mb-3">
             <Button variant="primary" type="submit">
