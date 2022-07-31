@@ -107,7 +107,10 @@ export default function ShippingAddressScreen() {
               id={country}
               onChange={(e) => setCountry(e.target.value)}
             >
-              <option value="U.S.A.">U.S.A.</option>
+              <option id="selector">Please Select Country...</option>
+              <option value="United States of America">
+                United States of America
+              </option>
               <option value="Canada">Canada</option>
             </Form.Select>
           </Form.Group>
