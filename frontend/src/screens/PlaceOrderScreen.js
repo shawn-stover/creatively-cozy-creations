@@ -1,25 +1,26 @@
 // Imports
 import React, { useContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link, useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import CheckoutSteps from '../components/CheckoutSteps.js';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Store } from '../Store.js';
+import CheckoutSteps from '../components/CheckoutSteps.js';
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
+
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.2345 => 123.23
-  cart.ItemPrice = round2(
+  cart.itemsPrice = round2(
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
   );
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
-  cart.taxPrice = round2(0.15 * cart.ItemsPrice);
+  cart.taxPrice = round2(0.0775 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
   const placeOrderHandler = async () => {};
@@ -64,7 +65,7 @@ export default function PlaceOrderScreen() {
               <Card.Title>Items</Card.Title>
               <ListGroup variant="flush">
                 {cart.cartItems.map((item) => (
-                  <ListGroup.Item jey={item._id}>
+                  <ListGroup.Item key={item._id}>
                     <Row className="align-items-center">
                       <Col md={6}>
                         <img
