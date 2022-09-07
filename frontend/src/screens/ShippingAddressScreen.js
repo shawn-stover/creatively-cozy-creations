@@ -18,7 +18,9 @@ export default function ShippingAddressScreen() {
   const [address, setAddress] = useState(shippingAddress.address || '');
   const [city, setCity] = useState(shippingAddress.city || '');
   const [stateProv, setStateProv] = useState(shippingAddress.stateProv || '');
-  const [zipCode, setZipCode] = useState(shippingAddress.zipCode || '');
+  const [postalCode, setPostalCode] = useState(
+    shippingAddress.postalCode || ''
+  );
   const [country, setCountry] = useState(shippingAddress.country || '');
   useEffect(() => {
     if (!userInfo) {
@@ -34,7 +36,7 @@ export default function ShippingAddressScreen() {
         address,
         city,
         stateProv,
-        zipCode,
+        postalCode,
         country,
       },
     });
@@ -45,7 +47,7 @@ export default function ShippingAddressScreen() {
         address,
         city,
         stateProv,
-        zipCode,
+        postalCode,
         country,
       })
     );
@@ -93,11 +95,11 @@ export default function ShippingAddressScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="zipCode">
+          <Form.Group className="mb-3" controlId="postalCode">
             <Form.Label>Zip or Postal Code</Form.Label>
             <Form.Control
-              value={zipCode}
-              onChange={(e) => setZipCode(e.target.value)}
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
               required
             />
           </Form.Group>
