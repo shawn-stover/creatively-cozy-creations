@@ -25,6 +25,7 @@ import Button from 'react-bootstrap/Button';
 import { getError } from './utils.js';
 import axios from 'axios';
 import SearchBox from './components/SearchBox.js';
+import SearchScreen from './screens/SearchScreen.js';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -73,7 +74,7 @@ function App() {
                 <i className="fas fa-bars"></i>
               </Button>
               <LinkContainer to="/">
-                <Navbar.Brand className="color-brand">
+                <Navbar.Brand className="mx-3 color-brand">
                   Creatively Cozy Creations
                 </Navbar.Brand>
               </LinkContainer>
@@ -154,6 +155,7 @@ function App() {
               here we are pulling product.slug */}
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
+              <Route path="/search" element={<SearchScreen />} />
               <Route path="/signin" element={<SignInScreen />} />
               <Route path="/signup" element={<SignUpScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
