@@ -179,7 +179,7 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Avg. Customer Review</h3>
+            <h3>Avg. Customer Reviews</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
