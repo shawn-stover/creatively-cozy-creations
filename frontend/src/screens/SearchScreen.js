@@ -231,7 +231,7 @@ export default function SearchScreen() {
                   </div>
                 </Col>
                 <Col className="text-end">
-                  Sort By
+                  Sort By{' '}
                   <select
                     value={order}
                     onChange={(e) => {
