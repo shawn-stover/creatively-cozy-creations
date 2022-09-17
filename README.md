@@ -1,2 +1,2 @@
-# ashley-website
- Ashleys Website with MERN
+# Creatively-cozy-creations
+ Creatively Cozy Creations Built in MERN
