@@ -24,3 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 backend/routes/seedRoutes.js
 backend/data.js
+frontend/data.js
