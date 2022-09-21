@@ -98,6 +98,27 @@ productRouter.get(
   })
 );
 
+productRouter.post(
+  '/',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const newProduct = new Product({
+      name: req.body.name,
+      slug: req.body.slug,
+      image: req.body.image,
+      category: req.body.category,
+      description: req.body.description,
+      price: req.body.price,
+      countInStock: req.body.countInStock,
+      rating: 0,
+      numReviews: 0,
+    });
+    await newProduct.save();
+    res.send({ message: 'Product created successfully!', newProduct });
+  })
+);
+
 productRouter.get(
   '/categories',
   expressAsyncHandler(async (req, res) => {

@@ -30,6 +30,7 @@ import ProtectedRoute from './components/ProtectedRoute.js';
 import DashboardScreen from './screens/DashboardScreen.js';
 import AdminRoute from './components/AdminRoute.js';
 import ProductListScreen from './screens/ProductListScreen.js';
+import CreateProductScreen from './screens/CreateProductScreen.js';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -178,6 +179,14 @@ function App() {
               <Route path="/search" element={<SearchScreen />} />
               <Route path="/signin" element={<SignInScreen />} />
               <Route path="/signup" element={<SignUpScreen />} />
+              <Route
+                path="/api/products/create"
+                element={
+                  <ProtectedRoute>
+                    <CreateProductScreen />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/profile"
                 element={

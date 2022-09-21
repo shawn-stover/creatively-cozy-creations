@@ -6,6 +6,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { getError } from '../utils';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,7 +40,7 @@ export default function ProductListScreen() {
     error: '',
   });
 
-  const { search, pathName } = useLocation();
+  const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;
   const { state } = useContext(Store);
@@ -59,7 +62,18 @@ export default function ProductListScreen() {
 
   return (
     <div>
-      <h1>Products</h1>
+      <Row>
+        <Col>
+          <h1>Products</h1>
+        </Col>
+        <Col className="col-text-end">
+          <div>
+            <Link to={'/api/products/create'}>
+              <Button>Create Product</Button>
+            </Link>
+          </div>
+        </Col>
+      </Row>
       {loading ? (
         <LoadingBox />
       ) : error ? (
