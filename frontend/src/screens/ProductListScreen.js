@@ -9,6 +9,7 @@ import MessageBox from '../components/MessageBox';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -29,13 +30,36 @@ const reducer = (state, action) => {
         loading: false,
         error: action.payload,
       };
+    case 'DELETE_REQUEST':
+      return { ...state, loadingDelete: true, successDelete: false };
+    case 'DELETE_SUCCESS':
+      return {
+        ...state,
+        loadingDelete: false,
+        successDelete: true,
+      };
+    case 'DELETE_FAIL':
+      return {
+        ...state,
+        loadingDelete: false,
+        successDelete: false,
+      };
+    case 'DELETE_RESET':
+      return {
+        ...state,
+        loadingDelete: false,
+        successDelete: false,
+      };
     default:
       return state;
   }
 };
 
 export default function ProductListScreen() {
-  const [{ loading, error, products, pages }, dispatch] = useReducer(reducer, {
+  const [
+    { loading, error, products, pages, loadingDelete, successDelete },
+    dispatch,
+  ] = useReducer(reducer, {
     loading: true,
     error: '',
   });
@@ -58,8 +82,27 @@ export default function ProductListScreen() {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
-    fetchData();
-  }, [page, userInfo]);
+    if (successDelete) {
+      dispatch({ type: 'DELETE_RESET' });
+    } else {
+      fetchData();
+    }
+  }, [page, userInfo, successDelete]);
+
+  const deleteHandler = async (product) => {
+    if (window.confirm(`Are you sure you want to delete ${product.name}?`)) {
+      try {
+        await axios.delete(`/api/products/${product._id}`, {
+          headers: { authorization: `Bearer ${userInfo.token}` },
+        });
+        dispatch({ type: 'DELETE_SUCCESS' });
+        toast.success('Product deleted successfully!');
+      } catch (err) {
+        dispatch({ type: 'DELETE_FAIL' });
+        toast.error(getError(err));
+      }
+    }
+  };
 
   return (
     <div>
@@ -75,6 +118,9 @@ export default function ProductListScreen() {
           </div>
         </Col>
       </Row>
+
+      {loadingDelete && <LoadingBox></LoadingBox>}
+
       {loading ? (
         <LoadingBox />
       ) : error ? (
@@ -106,6 +152,14 @@ export default function ProductListScreen() {
                     >
                       Edit
                     </Button>
+                    &nbsp;
+                    <Button
+                      type="button"
+                      variant="danger"
+                      onClick={() => deleteHandler(product)}
+                    >
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -114,7 +168,7 @@ export default function ProductListScreen() {
           <div>
             {[...Array(pages).keys()].map((x) => (
               <Link
-                className={x + 1 === Number(page) ? 'btn-text-bold' : 'btn'}
+                className={x + 1 === Number(page) ? 'btn text-bold' : 'btn'}
                 key={x + 1}
                 to={`/admin/products?page=${x + 1}`}
               >

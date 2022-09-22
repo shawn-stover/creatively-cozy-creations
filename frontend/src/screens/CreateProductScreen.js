@@ -143,6 +143,22 @@ export default function CreateProductScreen() {
         <Form.Group className="mb-3" controlId="productSlug">
           <Button onClick={createSlug}>Create Product URL</Button>
         </Form.Group>
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>URL</Form.Label>
+          <Form.Control
+            value={productSlug}
+            onChange={(e) => setProductSlug(e.target.value)}
+            required
+          ></Form.Control>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>Image</Form.Label>
+          <Form.Control
+            value={productImage}
+            onChange={(e) => setProductImage(e.target.value)}
+            required
+          ></Form.Control>
+        </Form.Group>
         <Form.Group className="mb-3" controlId="productImage">
           <Form.Label>Upload Image</Form.Label>
           <Form.Control type="file" onChange={uploadFileHandler} />
