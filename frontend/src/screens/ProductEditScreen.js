@@ -181,16 +181,16 @@ export default function ProductEditScreen() {
             ></Form.Control>
           </Form.Group>
           <Form.Group className="mb-3" controlId="name">
+            <Form.Label>Upload Image</Form.Label>
+            <Form.Control type="file" onChange={uploadFileHandler} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="name">
             <Form.Label>Image</Form.Label>
             <Form.Control
               value={image}
               onChange={(e) => setImage(e.target.value)}
               required
             ></Form.Control>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Upload Image</Form.Label>
-            <Form.Control type="file" onChange={uploadFileHandler} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Category</Form.Label>
@@ -229,6 +229,7 @@ export default function ProductEditScreen() {
               Update Product
             </Button>
             {loadingUpdate && <LoadingBox></LoadingBox>}
+            {loadingUpload && <LoadingBox></LoadingBox>}
           </div>
         </Form>
       )}

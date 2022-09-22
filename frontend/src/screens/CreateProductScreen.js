@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
+import MessageBox from '../components/MessageBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -132,72 +133,81 @@ export default function CreateProductScreen() {
       </Helmet>
       {/* Margin 3 on top and bottom */}
       <h1 className="my-3">Create Product</h1>
-      <Form onSubmit={createHandler}>
-        <Form.Group className="mb-3" controlId="productName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            required
-            onChange={(e) => setProductName(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="productSlug">
-          <Button onClick={createSlug}>Create Product URL</Button>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="name">
-          <Form.Label>URL</Form.Label>
-          <Form.Control
-            value={productSlug}
-            onChange={(e) => setProductSlug(e.target.value)}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="name">
-          <Form.Label>Image</Form.Label>
-          <Form.Control
-            value={productImage}
-            onChange={(e) => setProductImage(e.target.value)}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="productImage">
-          <Form.Label>Upload Image</Form.Label>
-          <Form.Control type="file" onChange={uploadFileHandler} />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Category</Form.Label>
-          <Form.Control
-            required
-            onChange={(e) => setProductCategory(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            required
-            onChange={(e) => setProductDescription(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Price</Form.Label>
-          <Form.Control
-            required
-            onChange={(e) => setProductPrice(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Count In Stock</Form.Label>
-          <Form.Control
-            required
-            onChange={(e) => setProductCountInStock(e.target.value)}
-          />
-        </Form.Group>
-        <div className="mb-3">
-          <Button disabled={loadingCreate} onClick={createHandler}>
-            Create Product
-          </Button>
-        </div>
-        <div className="mb-3">{loadingCreate && <LoadingBox></LoadingBox>}</div>
-      </Form>
+      {loading ? (
+        <LoadingBox></LoadingBox>
+      ) : error ? (
+        <MessageBox variant="danger">{error}</MessageBox>
+      ) : (
+        <Form onSubmit={createHandler}>
+          <Form.Group className="mb-3" controlId="productName">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              required
+              onChange={(e) => setProductName(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="productSlug">
+            <Button onClick={createSlug}>Create Product URL</Button>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="name">
+            <Form.Label>URL</Form.Label>
+            <Form.Control
+              value={productSlug}
+              onChange={(e) => setProductSlug(e.target.value)}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="productImage">
+            <Form.Label>Upload Image</Form.Label>
+            <Form.Control type="file" onChange={uploadFileHandler} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="name">
+            <Form.Label>Image</Form.Label>
+            <Form.Control
+              value={productImage}
+              onChange={(e) => setProductImage(e.target.value)}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Category</Form.Label>
+            <Form.Control
+              required
+              onChange={(e) => setProductCategory(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              required
+              onChange={(e) => setProductDescription(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Price</Form.Label>
+            <Form.Control
+              required
+              onChange={(e) => setProductPrice(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Count In Stock</Form.Label>
+            <Form.Control
+              required
+              onChange={(e) => setProductCountInStock(e.target.value)}
+            />
+          </Form.Group>
+          <div className="mb-3">
+            <Button disabled={loadingCreate} onClick={createHandler}>
+              Create Product
+            </Button>
+          </div>
+          <div className="mb-3">
+            {loadingUpload && <LoadingBox></LoadingBox>}
+            {loadingCreate && <LoadingBox></LoadingBox>}
+          </div>
+        </Form>
+      )}
     </Container>
   );
 }
