@@ -31,6 +31,7 @@ import DashboardScreen from './screens/DashboardScreen.js';
 import AdminRoute from './components/AdminRoute.js';
 import ProductListScreen from './screens/ProductListScreen.js';
 import CreateProductScreen from './screens/CreateProductScreen.js';
+import ProductEditScreen from './screens/ProductEditScreen.js';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -229,6 +230,14 @@ function App() {
                 element={
                   <AdminRoute>
                     <ProductListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/product/:id"
+                element={
+                  <AdminRoute>
+                    <ProductEditScreen />
                   </AdminRoute>
                 }
               ></Route>

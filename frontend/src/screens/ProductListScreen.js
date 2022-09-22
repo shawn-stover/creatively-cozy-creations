@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
 import { Store } from '../Store';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { getError } from '../utils';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -41,6 +41,7 @@ export default function ProductListScreen() {
   });
 
   const { search } = useLocation();
+  const navigate = useNavigate();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;
   const { state } = useContext(Store);
@@ -66,7 +67,7 @@ export default function ProductListScreen() {
         <Col>
           <h1>Products</h1>
         </Col>
-        <Col className="col-text-end">
+        <Col className="col text-end">
           <div>
             <Link to={'/api/products/create'}>
               <Button>Create Product</Button>
@@ -87,6 +88,7 @@ export default function ProductListScreen() {
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
+                <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -96,6 +98,15 @@ export default function ProductListScreen() {
                   <td>{product.name}</td>
                   <td>{product.price}</td>
                   <td>{product.category}</td>
+                  <td>
+                    <Button
+                      type="button"
+                      variant="primary"
+                      onClick={() => navigate(`/admin/product/${product._id}`)}
+                    >
+                      Edit
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>
