@@ -33,6 +33,8 @@ import ProductListScreen from './screens/ProductListScreen.js';
 import CreateProductScreen from './screens/CreateProductScreen.js';
 import ProductEditScreen from './screens/ProductEditScreen.js';
 import OrderListScreen from './screens/OrderListScreen.js';
+import UserListScreen from './screens/UserListScreen.js';
+import UserEditScreen from './screens/UserEditScreen.js';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -235,6 +237,14 @@ function App() {
                 }
               ></Route>
               <Route
+                path="/admin/users"
+                element={
+                  <AdminRoute>
+                    <UserListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
                 path="/admin/products"
                 element={
                   <AdminRoute>
@@ -247,6 +257,14 @@ function App() {
                 element={
                   <AdminRoute>
                     <ProductEditScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/user/:id"
+                element={
+                  <AdminRoute>
+                    <UserEditScreen />
                   </AdminRoute>
                 }
               ></Route>

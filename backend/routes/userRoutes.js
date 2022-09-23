@@ -3,9 +3,33 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
-import { generateToken, isAuth } from '../utils.js';
+import { generateToken, isAuth, isAdmin } from '../utils.js';
 
 const userRouter = express.Router();
+
+userRouter.get(
+  '/',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({});
+    res.send(users);
+  })
+);
+
+userRouter.get(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(404).send({ message: 'User not found!' });
+    }
+  })
+);
 
 userRouter.post(
   '/signin',
@@ -24,6 +48,24 @@ userRouter.post(
       }
     }
     res.status(401).send({ message: 'Invalid Email or Password' });
+  })
+);
+
+userRouter.put(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.isAdmin = Boolean(req.body.isAdmin);
+      const updatedUser = await user.save();
+      res.send({ message: 'User updated successfully!', user: updatedUser });
+    } else {
+      res.status(404).send({ message: 'User Not Found!' });
+    }
   })
 );
 
@@ -67,6 +109,25 @@ userRouter.put(
       });
     } else {
       res.status(404).send({ message: 'User not found!' });
+    }
+  })
+);
+
+userRouter.delete(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      if (user.isAdmin === true) {
+        res.status(400).send({ message: 'Admin users cannot be deleted!' });
+        return;
+      }
+      await user.remove();
+      res.send({ message: 'User Deleted!' });
+    } else {
+      res.status(404).send({ message: 'User Not Found!' });
     }
   })
 );
