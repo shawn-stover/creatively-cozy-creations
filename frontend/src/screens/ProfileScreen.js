@@ -7,6 +7,8 @@ import { Store } from '../Store';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
 import axios from 'axios';
+import LoadingBox from '../components/LoadingBox';
+import { useParams } from 'react-router-dom';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -38,7 +40,7 @@ export default function ProfileScreen() {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        '/api/users/profile',
+        `/profile`,
         {
           name,
           email,
@@ -68,7 +70,7 @@ export default function ProfileScreen() {
         <title>User Profile</title>
       </Helmet>
       <h1 className="my-3">User Profile</h1>
-      <form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -93,7 +95,7 @@ export default function ProfileScreen() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group className="mb-3" controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
@@ -101,9 +103,10 @@ export default function ProfileScreen() {
           />
         </Form.Group>
         <div className="mb-3">
+          {loadingUpdate && <LoadingBox></LoadingBox>}
           <Button type="submit">Update</Button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }

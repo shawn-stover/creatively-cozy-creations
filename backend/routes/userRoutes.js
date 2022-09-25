@@ -69,6 +69,25 @@ userRouter.put(
   })
 );
 
+userRouter.delete(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      if (user.isAdmin === true) {
+        res.status(400).send({ message: 'Admin users cannot be deleted!' });
+        return;
+      }
+      await user.remove();
+      res.send({ message: 'User Deleted!' });
+    } else {
+      res.status(404).send({ message: 'User Not Found!' });
+    }
+  })
+);
+
 userRouter.post(
   '/signup',
   expressAsyncHandler(async (req, res) => {
@@ -96,8 +115,10 @@ userRouter.put(
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
-      if (req.body.password) {
+      if (req.body.password && req.body.password === req.body.confirmPassword) {
         user.password = bcrypt.hashSync(req.body.password, 8);
+      } else {
+        res.status(404).send({ message: 'Passwords do not match!' });
       }
       const updatedUser = await user.save();
       res.send({
@@ -109,25 +130,6 @@ userRouter.put(
       });
     } else {
       res.status(404).send({ message: 'User not found!' });
-    }
-  })
-);
-
-userRouter.delete(
-  '/:id',
-  isAuth,
-  isAdmin,
-  expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
-    if (user) {
-      if (user.isAdmin === true) {
-        res.status(400).send({ message: 'Admin users cannot be deleted!' });
-        return;
-      }
-      await user.remove();
-      res.send({ message: 'User Deleted!' });
-    } else {
-      res.status(404).send({ message: 'User Not Found!' });
     }
   })
 );
