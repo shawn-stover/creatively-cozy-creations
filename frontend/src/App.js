@@ -35,11 +35,10 @@ import ProductEditScreen from './screens/ProductEditScreen.js';
 import OrderListScreen from './screens/OrderListScreen.js';
 import UserListScreen from './screens/UserListScreen.js';
 import UserEditScreen from './screens/UserEditScreen.js';
-import MapScreen from './screens/MapScreen.js';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { fullBox, cart, userInfo } = state;
+  const { cart, userInfo } = state;
 
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
@@ -69,12 +68,8 @@ function App() {
       <div
         className={
           sidebarIsOpen
-            ? fullBox
-              ? 'site-container active-cont d-flex flex-column full-box'
-              : 'site-container active-cont d-flex flex-column'
-            : fullBox
-            ? 'site-container d-flex flex-column full-box'
-            : 'site-container d-flex flex-column'
+            ? 'd-flex flex-column site-container active-cont'
+            : 'd-flex flex-column site-container'
         }
       >
         <ToastContainer position="bottom-center" limit={1} />
@@ -189,26 +184,10 @@ function App() {
               <Route path="/signin" element={<SignInScreen />} />
               <Route path="/signup" element={<SignUpScreen />} />
               <Route
-                path="/api/products/create"
-                element={
-                  <ProtectedRoute>
-                    <CreateProductScreen />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
                 path="/profile"
                 element={
                   <ProtectedRoute>
                     <ProfileScreen />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/map"
-                element={
-                  <ProtectedRoute>
-                    <MapScreen />
                   </ProtectedRoute>
                 }
               />
@@ -265,6 +244,14 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
+              <Route
+                path="/admin/product/create"
+                element={
+                  <AdminRoute>
+                    <CreateProductScreen />
+                  </AdminRoute>
+                }
+              />
               <Route
                 path="/admin/product/:id"
                 element={

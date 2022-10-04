@@ -99,7 +99,7 @@ productRouter.get(
 );
 
 productRouter.post(
-  '/',
+  '/create',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -152,7 +152,7 @@ productRouter.delete(
       await product.remove();
       res.send({ message: 'Product Deleted!' });
     } else {
-      res.status(404).send({ message: 'Proiduct Not Found!' });
+      res.status(404).send({ message: 'Product Not Found!' });
     }
   })
 );

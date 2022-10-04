@@ -11,7 +11,6 @@ export default function ShippingAddressScreen() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
-    fullBox,
     userInfo,
     cart: { shippingAddress },
   } = state;
@@ -39,7 +38,6 @@ export default function ShippingAddressScreen() {
         stateProv,
         postalCode,
         country,
-        location: shippingAddress.location,
       },
     });
     localStorage.setItem(
@@ -51,15 +49,10 @@ export default function ShippingAddressScreen() {
         stateProv,
         postalCode,
         country,
-        location: shippingAddress.location,
       })
     );
     navigate('/payment');
   };
-
-  useEffect(() => {
-    ctxDispatch({ type: 'SET_FULLBOX_OFF' });
-  }, [ctxDispatch, fullBox]);
 
   return (
     <div>
@@ -123,16 +116,6 @@ export default function ShippingAddressScreen() {
               <option value="Canada">Canada</option>
             </Form.Select>
           </Form.Group>
-          <div className="mb-3">
-            <Button
-              id="chooseOnMap"
-              type="button"
-              variant="primary"
-              onClick={() => navigate('/map')}
-            >
-              Choose Location on Map
-            </Button>
-          </div>
           <div className="mb-3">
             <Button variant="primary" type="submit">
               Confirm

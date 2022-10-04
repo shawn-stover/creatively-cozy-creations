@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import { getError } from '../utils';
 import axios from 'axios';
 import LoadingBox from '../components/LoadingBox';
-import { useParams } from 'react-router-dom';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -38,9 +37,13 @@ export default function ProfileScreen() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match!');
+      return;
+    }
     try {
       const { data } = await axios.put(
-        `/profile`,
+        '/api/users',
         {
           name,
           email,
@@ -54,8 +57,8 @@ export default function ProfileScreen() {
         type: 'UPDATE_SUCCESS',
       });
       ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      toast.success('User updated successfully!');
+      localStorage.setItem('userInfo');
+      toast.success('User updated successfully');
     } catch (err) {
       dispatch({
         type: 'FETCH_FAIL',
