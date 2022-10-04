@@ -51,7 +51,20 @@ export default function CartScreen() {
         <Col md={8}>
           {cartItems.length === 0 ? (
             <MessageBox>
-              Cart is empty. <Link to="/">Go Shopping</Link>
+              Cart is empty.
+              <br />
+              <br />
+              <Button variant="primary">
+                <Link
+                  to="/"
+                  style={{
+                    color: '#FFFFFF',
+                    textDecoration: 'none',
+                  }}
+                >
+                  Go Shopping
+                </Link>
+              </Button>
             </MessageBox>
           ) : (
             <ListGroup>
@@ -110,16 +123,18 @@ export default function CartScreen() {
                   <h3>
                     {/* Reduce function with Accumulator to 
                     handle calculating total */}
-                    Subtotal: (
+                    Subtotal:{' '}
                     {cartItems.reduce(
                       (accumulator, currentItem) =>
                         accumulator + currentItem.quantity,
                       0
                     )}{' '}
-                    item(s)) : $
+                    item(s): $
                     {cartItems.reduce(
                       (accumulator, currentItem) =>
-                        accumulator + currentItem.price * currentItem.quantity,
+                        accumulator +
+                        Number(currentItem.price).toFixed(2) *
+                          currentItem.quantity,
                       0
                     )}
                   </h3>
