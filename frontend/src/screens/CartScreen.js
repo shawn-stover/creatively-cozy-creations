@@ -87,7 +87,7 @@ export default function CartScreen() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>${item.price}</Col>
+                    <Col md={3}>${item.price.toFixed(2)}</Col>
                     <Col md={2}>
                       <Button
                         onClick={() => removeItemHandler(item)}

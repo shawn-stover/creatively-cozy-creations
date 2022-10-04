@@ -102,7 +102,7 @@ export default function OrderScreen() {
           }
         );
         dispatch({ type: 'PAY_SUCCESS', payload: data });
-        toast.success('Order is paid');
+        toast.success('Order paid successfully!');
       } catch (err) {
         dispatch({ type: 'PAY_FAIL', payload: getError(err) });
         toast.error(getError(err));
