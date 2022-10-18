@@ -98,27 +98,6 @@ productRouter.get(
   })
 );
 
-productRouter.post(
-  '/create',
-  isAuth,
-  isAdmin,
-  expressAsyncHandler(async (req, res) => {
-    const newProduct = new Product({
-      name: req.body.name,
-      slug: req.body.slug,
-      image: req.body.image,
-      category: req.body.category,
-      description: req.body.description,
-      price: req.body.price,
-      countInStock: req.body.countInStock,
-      rating: 0,
-      numReviews: 0,
-    });
-    await newProduct.save();
-    res.send({ message: 'Product created successfully!', newProduct });
-  })
-);
-
 productRouter.put(
   '/:id',
   isAuth,
@@ -190,6 +169,27 @@ productRouter.post(
     } else {
       res.status(404).send({ message: 'Product not found!' });
     }
+  })
+);
+
+productRouter.post(
+  '/create',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const newProduct = new Product({
+      name: req.body.name,
+      slug: req.body.slug,
+      image: req.body.image,
+      category: req.body.category,
+      description: req.body.description,
+      price: req.body.price,
+      countInStock: req.body.countInStock,
+      rating: 0,
+      numReviews: 0,
+    });
+    await newProduct.save();
+    res.send({ message: 'Product created successfully!', newProduct });
   })
 );
 

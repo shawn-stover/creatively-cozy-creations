@@ -245,13 +245,13 @@ function App() {
                 }
               ></Route>
               <Route
-                path="/admin/product/create"
+                path="/api/products/create"
                 element={
                   <AdminRoute>
                     <CreateProductScreen />
                   </AdminRoute>
                 }
-              />
+              ></Route>
               <Route
                 path="/admin/product/:id"
                 element={

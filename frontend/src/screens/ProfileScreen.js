@@ -7,7 +7,6 @@ import { Store } from '../Store';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
 import axios from 'axios';
-import LoadingBox from '../components/LoadingBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -43,7 +42,7 @@ export default function ProfileScreen() {
     }
     try {
       const { data } = await axios.put(
-        '/api/users',
+        '/api/users/profile',
         {
           name,
           email,
@@ -57,8 +56,8 @@ export default function ProfileScreen() {
         type: 'UPDATE_SUCCESS',
       });
       ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-      localStorage.setItem('userInfo');
-      toast.success('User updated successfully');
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      toast.success('User updated successfully!');
     } catch (err) {
       dispatch({
         type: 'FETCH_FAIL',
@@ -106,7 +105,6 @@ export default function ProfileScreen() {
           />
         </Form.Group>
         <div className="mb-3">
-          {loadingUpdate && <LoadingBox></LoadingBox>}
           <Button type="submit">Update</Button>
         </div>
       </Form>
