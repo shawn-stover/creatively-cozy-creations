@@ -109,6 +109,7 @@ productRouter.put(
       product.name = req.body.name;
       product.slug = req.body.slug;
       product.image = req.body.image;
+      product.images = req.body.images;
       product.category = req.body.category;
       product.countInStock = req.body.countInStock;
       product.price = req.body.price;
@@ -181,6 +182,7 @@ productRouter.post(
       name: req.body.name,
       slug: req.body.slug,
       image: req.body.image,
+      images: req.body.images,
       category: req.body.category,
       description: req.body.description,
       price: req.body.price,

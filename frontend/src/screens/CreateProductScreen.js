@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Store } from '../Store';
 import { getError } from '../utils';
 import Container from 'react-bootstrap/Container';
+import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
@@ -44,6 +45,7 @@ export default function CreateProductScreen() {
   const [productName, setProductName] = useState('');
   const [productSlug, setProductSlug] = useState('');
   const [productImage, setProductImage] = useState('');
+  const [images, setImages] = useState([]);
   const [productCategory, setProductCategory] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [productPrice, setProductPrice] = useState('');
@@ -59,6 +61,7 @@ export default function CreateProductScreen() {
           name: productName,
           slug: productSlug,
           image: productImage,
+          images: images,
           category: productCategory,
           description: productDescription,
           price: productPrice,
@@ -105,7 +108,7 @@ export default function CreateProductScreen() {
     }
   };
 
-  const uploadFileHandler = async (e) => {
+  const uploadFileHandler = async (e, forImages) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
     bodyFormData.append('file', file);
@@ -118,12 +121,21 @@ export default function CreateProductScreen() {
         },
       });
       dispatch({ type: 'UPLOAD_SUCCESS' });
+      if (forImages) {
+        setImages([...images, data.secure_url]);
+      } else {
+        setProductImage(data.secure_url);
+      }
       toast.success('Image Uploaded Successfully!');
-      setProductImage(data.secure_url);
     } catch (err) {
       dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
       toast.error(getError(err));
     }
+  };
+
+  const deleteFileHandler = async (fileName) => {
+    setImages(images.filter((x) => x !== fileName));
+    toast.success('Image Removed Successfully!');
   };
 
   return (
@@ -163,6 +175,28 @@ export default function CreateProductScreen() {
             onChange={(e) => setProductImage(e.target.value)}
             required
           ></Form.Control>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="additionalImage">
+          <Form.Label>Additional Images</Form.Label>
+          {images.length === 0 && <MessageBox>No Additional Images</MessageBox>}
+          <ListGroup variant="flush">
+            {images.map((x) => (
+              <ListGroup.Item key={x}>
+                {x}
+                <Button variant="light" onClick={() => deleteFileHandler(x)}>
+                  <i className="fa fa-times-circle"></i>
+                </Button>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="additionalImageFile">
+          <Form.Label>Upload Additional Image</Form.Label>
+          <Form.Control
+            type="file"
+            onChange={(e) => uploadFileHandler(e, true)}
+          ></Form.Control>
+          {loadingUpload && <LoadingBox></LoadingBox>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Category</Form.Label>
